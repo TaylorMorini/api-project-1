@@ -23,6 +23,7 @@ export class UserIP extends LitElement {
     // Java or other Object Oriented Programming Language
     // so for this one, we're storing a reference to the API endpoint
     // so that if it ever changed it would be easier to update
+
     this.ipLookUp = 'https://ip-fast.com/api/ip/?format=json&location=True';
   }
 
@@ -30,6 +31,8 @@ export class UserIP extends LitElement {
   static get properties() {
     return {
       ip: { type: String, reflect: true },
+
+      // retrieving location stuff
       country: { type: String, reflect: true },
       city: { type: String, reflect: true },
       location: { type: String, reflect: true },
@@ -106,6 +109,8 @@ export class UserIP extends LitElement {
         this.ip = data.ip;
         this.city = data.city;
         this.country = data.country;
+
+        // trying to output them in one line
         this.location = `${data.city}, ${data.country}`;
 
         return data;
@@ -145,10 +150,12 @@ export class UserIP extends LitElement {
 
   // this serves very little purpose but at least we're rendering the info
   render() {
+    // im a little confused here, and im pretty sure I made some errors trying to get the location stuff to work correctly
     return html` <ul>
       <li><strong class="ipaddress">IP address: </strong> ${this.ip}</li>
       <li><strong class="country">Country: </strong> ${this.country}</li>
       <li><strong class="city">City: </strong> ${this.city}</li>
+
       <li><strong class="location">Location: </strong> ${this.location}</li>
 
       <li></li>
