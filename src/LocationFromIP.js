@@ -15,8 +15,13 @@ export class LocationFromIP extends LitElement {
     this.lat = 77.923029;
   }
 
+  // I'm not really sure what the "reflect" is doing other than its a boolean value
+  // my guess is that its ensuring the long/lat are numbers, but its purpose isnt clear to me
   static get properties() {
-    return {};
+    return {
+      long: { type: Number, reflect: true },
+      lat: { type: Number, reflect: true },
+    };
   }
 
   firstUpdated(changedProperties) {
@@ -28,6 +33,7 @@ export class LocationFromIP extends LitElement {
 
   async getGEOIPData() {
     const IPClass = new UserIP();
+    // im not really sure what the "await" is doing
     const userIPData = await IPClass.updateUserIP();
     return fetch(this.locationEndpoint + userIPData.ip)
       .then(resp => {
@@ -38,6 +44,13 @@ export class LocationFromIP extends LitElement {
       })
       .then(data => {
         console.log(data);
+        // this.long + this.lat will be capturing where the user is based on IP
+        // (using properties w/ type number)
+        // not entirely sure that this part is correct
+
+        this.long = data.long;
+        this.lat = data.lat;
+
         return data;
       });
   }
@@ -60,6 +73,7 @@ export class LocationFromIP extends LitElement {
     // this function runs every time a properties() declared variable changes
     // this means you can make new variables and then bind them this way if you like
     const url = `https://maps.google.com/maps?q=${this.long},${this.lat}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
     return html`<iframe title="Where you are" src="${url}"></iframe> `;
   }
 }
