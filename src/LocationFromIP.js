@@ -48,7 +48,6 @@ export class LocationFromIP extends LitElement {
         // this.long + this.lat will be capturing where the user is based on IP
         // (using properties w/ type number)
         // not entirely sure that this part is correct
-
         this.long = data.long;
         this.lat = data.lat;
 
