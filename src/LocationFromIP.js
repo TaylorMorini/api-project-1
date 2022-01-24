@@ -31,6 +31,7 @@ export class LocationFromIP extends LitElement {
     this.getGEOIPData();
   }
 
+  // im not really sure what "async" means in this context
   async getGEOIPData() {
     const IPClass = new UserIP();
     // im not really sure what the "await" is doing
@@ -72,6 +73,7 @@ export class LocationFromIP extends LitElement {
   render() {
     // this function runs every time a properties() declared variable changes
     // this means you can make new variables and then bind them this way if you like
+
     const url = `https://maps.google.com/maps?q=${this.long},${this.lat}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
     return html`<iframe title="Where you are" src="${url}"></iframe> `;
